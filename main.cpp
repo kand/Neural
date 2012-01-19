@@ -10,19 +10,20 @@ int main()
 
     Graph g;
 
+    double initOutVal = 0.0;
+
     // Input nodes
-    Node* i_node1 = new Node();
+    Node* i_node1 = new Node(initOutVal);
     g.addNode(i_node1);
-    Node* i_node2 = new Node();
+    Node* i_node2 = new Node(initOutVal);
     g.addNode(i_node2);
 
     // Output node
-    Node* o_node3 = new Node();
+    Node* o_node3 = new Node(initOutVal);
     g.addNode(o_node3);
 
     // dummy edge for learning
     Node* i_node0 = new Node();
-    i_node0->setOutputValue(1);
     Edge* edge0 = new Edge(i_node0,o_node3,0);
 
     Edge* edge1 = new Edge(i_node1,o_node3,0);
@@ -38,6 +39,7 @@ int main()
     // training set {x1,x2,y}
     double training[4][3] = {{0,0,1},{0,1,1},{1,0,1},{1,1,0}};
     double learnRate = 0.1;
+    double activationThreshold = 0.5;
     unsigned trainingIterations = 9;
 
     unsigned sizei = sizeof(training)/sizeof(double[3]);
@@ -53,7 +55,8 @@ int main()
             i_node2->setOutputValue(training[i][1]);
 
             // activate node, collect data
-            double result = o_node3->activate();
+            //double result = o_node3->logisticActivate();
+            double result = o_node3->hardThresholdActivate(activationThreshold);
 
             double error = training[i][2] - result;
             double correction = learnRate * error;

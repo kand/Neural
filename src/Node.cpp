@@ -3,35 +3,38 @@
 #include <math.h>
 
 Node::Node(){
-    outputValue = 1.0;
+    init(1.0);
+}
+
+Node::Node(double initOutputValue){
+    init(initOutputValue);
 }
 
 Node::~Node(){
 }
 
-double Node::activate(){
-    double output = calculateInput();
+double Node::logisticActivate(){
+    return 1/(1 + exp(this->calculateInput()));
+}
 
-    // logistic activation function
-    //output = 1/(1+exp(output));
-
-    // hard threshold activation function
-    if(output > 0.5) output = 1;
-    else output = 0;
-
-    this->outputValue = output;
-
-    return outputValue;
+double Node::hardThresholdActivate(double threshold){
+    if(this->calculateInput() > threshold) return 1;
+    return 0;
 }
 
 double Node::calculateInput(){
-    double input = 0;
+    this->inputValue = 0;
 
     // add incoming outputs modifed by their edge weight
     for(unsigned i = 0; i < indegrees.size(); i++){
-        input += indegrees[i]->getWeight()
+        this->inputValue +=
+                indegrees[i]->getWeight()
                 * indegrees[i]->getOrigin()->getOutputValue();
     }
 
-    return input;
+    return this->inputValue;
+}
+
+void Node::init(double initOutputValue){
+    this->outputValue = initOutputValue;
 }

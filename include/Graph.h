@@ -26,6 +26,7 @@ class Graph
         }
 
     protected:
+
     private:
         vector<Node*> nodes;
 };

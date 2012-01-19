@@ -83,5 +83,22 @@ int main()
         }
     }
 
+    // test network
+    i_node1->setOutputValue(1);
+    i_node2->setOutputValue(0);
+    cout << "1 0 " << o_node3->hardThresholdActivate(0.5) << endl;
+
+    i_node1->setOutputValue(0);
+    i_node2->setOutputValue(1);
+    cout << "0 1 " << o_node3->hardThresholdActivate(0.5) << endl;
+
+    i_node1->setOutputValue(0);
+    i_node2->setOutputValue(0);
+    cout << "0 0 " << o_node3->hardThresholdActivate(0.5) << endl;
+
+    i_node1->setOutputValue(1);
+    i_node2->setOutputValue(1);
+    cout << "1 1 " << o_node3->hardThresholdActivate(0.5) << endl;
+
     return 0;
 }

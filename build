@@ -1,0 +1,10 @@
+echo "Buidling executable..."
+g++ -I./include/ ./src/Edge.cpp -o obj/Edge.o -c
+g++ -I./include/ ./src/Node.cpp -o obj/Node.o -c
+g++ -I./include/ ./src/Graph.cpp -o obj/Graph.o -c
+g++ -I./include/ main.cpp -o obj/Neural.exe obj/Edge.o obj/Node.o obj/Graph.o
+
+echo "Removing object files..."
+rm obj/*.o
+
+echo "Complete."
